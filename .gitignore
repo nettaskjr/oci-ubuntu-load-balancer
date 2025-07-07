@@ -1,0 +1,47 @@
+## Arquivo `.gitignore`
+
+# Arquivos de estado local do Terraform
+*.tfstate
+*.tfstate.*
+
+# Arquivos de log de crash
+crash.log
+crash.*.log
+
+# Arquivos .tfvars (contêm informações sensíveis)
+# Exceção para tfvars.example ou similar, se você tiver um.
+*.tfvars
+*.tfvars.json
+
+# Arquivos de substituição (override)
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Arquivos de plano do Terraform (podem conter informações sensíveis)
+*.tfplan
+
+# Diretório .terraform (contém plugins e módulos)
+.terraform/
+
+# Arquivos de configuração do editor/IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# Arquivos de sistema operacional
+.DS_Store
+Thumbs.db
+
+# Chaves privadas ou arquivos de credenciais (embora o ideal seja nunca adicioná-los)
+*.pem
+*.key
+credentials*
+*.secrets
+
+# Arquivos de ambiente Python (se usar scripts locais)
+venv/
+*.pyc
+__pycache__/

@@ -1,0 +1,72 @@
+tenancy_ocid            = "ocid1.tenancy.oc1..xxxxxxxx"                                                                      # OCID do seu Tenancy
+user_ocid               = "ocid1.user.oc1..xxxxxxxx"                                                                         # OCID do usuário que executa o Terrafor
+fingerprint             = "xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx"                                                  # Fingerprint da chave API
+region                  = "sa-saopaulo-1"                                                                                    # Sua região OCI
+compartment_ocid        = "ocid1.tenancy.oc1..xxxxxxxx"                                                                      # OCID do compartimento onde os recursos serão criados
+ssh_public_key          = "ssh-ed25519 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx nestor.junior@gmail.com" # Ajuste o caminho para sua chave pública SSH
+ssh_private_key_path    = "/caminho/para/sua/chave_privada"                                                                  # Chave privada SSH para acesso às instâncias
+user_instance           = "ubuntu"                                                                                           # Nome de usuário para a instância VDI
+instance_display_name   = "ubuntu-instance"                                                                                  # Nome de exibição para a instância VDI
+instance_shape          = "VM.Standard.A1.Flex"                                                                              # Forma da instância, considere VM.Standard.E2.1.Micro ou VM.Standard.A1.Flex
+email                   = "xxxxxxxx @gmail.com"                                                                              # E-mail do usuário para notificações
+instance_ocpus          = "2"                                                                                                # OCPUs para a instância (relevante para formas Flex)
+instance_memory_in_gbs  = "12"                                                                                               # Memória em GBs para a instância (relevante para formas Flex)
+boot_volume_size_in_gbs = "50"                                                                                               # Tamanho do volume de inicialização em GBs
+
+# A conta Always Free da Oracle Cloud Infrastructure (OCI) oferece um conjunto de recursos que podem ser utilizados gratuitamente por tempo indeterminado. No entanto, é crucial entender que esses recursos possuem limites específicos. É importante notar também que a OCI oferece um período de *Free Trial* (Avaliação Gratuita) de 30 dias com US$300 em créditos para experimentar serviços além da camada Always Free. Após esse período, ou o consumo total dos créditos, a conta é automaticamente convertida para o modo Always Free, a menos que o usuário opte por um upgrade para uma conta paga.
+
+# Os recursos Always Free estão disponíveis principalmente na sua região home, que é selecionada durante a criação da conta.
+
+# Aqui estão alguns dos principais limites e recursos incluídos na camada Always Free da OCI:
+
+# Recursos de Computação:
+
+# * Máquinas Virtuais (VMs):
+#     * Até duas instâncias de VM com processador AMD (forma VM.Standard.E2.1.Micro). Cada uma com 1/8 de OCPU (Oracle Compute Unit) e 1 GB de memória.
+#     * Instâncias baseadas em processador Arm (forma VM.Standard.A1.Flex): Até 4 OCPUs e 24 GB de memória RAM, que podem ser alocados de forma flexível (por exemplo, 1 VM com 4 OCPUs e 24GB RAM, ou 4 VMs com 1 OCPU e 6GB RAM cada).
+# * Volumes de Bloco (Block Volume):
+#     * Total de 200 GB de armazenamento combinado de volume de inicialização e volume em blocos.
+#     * Até 5 backups de volume no total (combinando backups de volume de inicialização e volume em blocos).
+# * Balanceador de Carga (Load Balancer):
+#     * 1 instância de balanceador de carga flexível com largura de banda de 10 Mbps.
+#     * Ou um Network Load Balancer com limites específicos para listeners, conjuntos de backend e servidores de backend.
+
+# Armazenamento:
+
+# * Object Storage:
+#     * 20 GB combinados de armazenamento nas camadas Standard, Infrequent Access e Archive.
+#     * 50.000 solicitações de API do serviço Object Storage por mês.
+#     * (Os limites podem variar ligeiramente dependendo se você ainda está no período de Free Trial ou se já está apenas com a conta Always Free).
+# * Archive Storage: Parte dos 20GB mencionados acima.
+
+# Bancos de Dados:
+
+# * Autonomous Database (disponível em tipos como Autonomous Transaction Processing ou Autonomous Data Warehouse):
+#     * Até duas instâncias.
+#     * Cada instância com 1 OCPU e 20 GB de armazenamento.
+#     * Os Autonomous Databases Always Free não podem ser provisionados como pontos finais privados e não residem em uma Virtual Cloud Network (VCN).
+#     * Não suportam restauração para backups anteriores (para isso, é necessário upgrade para uma instância paga).
+#     * Podem ser interrompidos automaticamente após um período de inatividade.
+
+# Rede:
+
+# * Saída de Dados (Outbound Data Transfer): 10 TB por mês para toda a conta.
+# * Virtual Cloud Networks (VCN): Suporte para VCNs, permitindo criar redes privadas na nuvem.
+# * VPN Site-to-Site: Conectividade VPN limitada.
+
+# Outros Serviços:
+
+# * Monitoring: Serviços básicos de monitoramento.
+# * Notifications: Serviços de notificação.
+# * Vault (Gerenciamento de Segredos): Até 150 segredos Always Free, com limites de versões por segredo.
+# * Logging: Limites específicos para ingestão e retenção de logs.
+
+# Considerações Importantes:
+
+# * Região Home: A maioria dos recursos Always Free está vinculada à sua região home.
+# * Disponibilidade de Formas (Shapes): A disponibilidade de formas de computação específicas pode variar por região.
+# * Atualização para Conta Paga (Pay As You Go - PAYG): Se você exceder os limites do Always Free ou precisar de recursos não incluídos, será necessário fazer upgrade para uma conta paga. Caso contrário, os recursos que excederem os limites podem ser suspensos ou encerrados.
+# * Termos de Serviço: É fundamental aderir aos Termos de Serviço da Oracle. A criação de múltiplas contas gratuitas por uma mesma pessoa é proibida e pode levar à suspensão da conta.
+# * Documentação Oficial: Os limites e ofertas do Always Free podem mudar. É sempre recomendado consultar a [documentação oficial da Oracle Cloud Infrastructure](https://docs.oracle.com/pt-br/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm) para obter as informações mais atualizadas e detalhadas. Você também pode verificar os limites da sua tenancy diretamente no Console da OCI.
+
+# A camada Always Free da OCI é uma excelente maneira de aprender, experimentar e até mesmo hospedar pequenas aplicações sem custo. No entanto, é crucial estar ciente dos limites para evitar surpresas.
