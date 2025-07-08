@@ -4,6 +4,9 @@
 *.tfstate
 *.tfstate.*
 
+# Arquivos de travamento do Terraform
+.terraform.lock.hcl
+
 # Arquivos de log de crash
 crash.log
 crash.*.log
