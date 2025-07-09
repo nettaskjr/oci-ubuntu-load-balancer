@@ -10,12 +10,12 @@ provider "oci" {
 # Busca os Domínios de Disponibilidade (ADs) na região especificada
 data "oci_identity_availability_domains" "ads" {
   # Usa o OCID da tenancy para buscar os ADs, pois eles são um recurso no nível da tenancy.
-  compartment_id = var.tenancy_ocid
+  compartment_id = var.compartment_ocid
 }
 
 # Busca a imagem mais recente do Ubuntu compatível
 data "oci_core_images" "latest_ubuntu_image" {
-  compartment_id           = var.tenancy_ocid # Imagens públicas estão no compartimento da tenancy
+  compartment_id           = var.compartment_ocid # Imagens públicas estão no compartimento da tenancy
   operating_system         = "Canonical Ubuntu"
   operating_system_version = "22.04" # Você pode ajustar a versão majoritária desejada
   shape                    = var.instance_shape
@@ -25,7 +25,7 @@ data "oci_core_images" "latest_ubuntu_image" {
 
 # Definição da Virtual Cloud Network (VCN)
 resource "oci_core_vcn" "always_free_vcn" {
-  compartment_id = var.tenancy_ocid
+  compartment_id = var.compartment_ocid
   cidr_block     = "10.0.0.0/16"
   display_name   = "AlwaysFreeVCN"
   dns_label      = "alwaysfreevcn"
@@ -33,14 +33,14 @@ resource "oci_core_vcn" "always_free_vcn" {
 
 # Definição do Internet Gateway
 resource "oci_core_internet_gateway" "internet_gateway" {
-  compartment_id = var.tenancy_ocid
+  compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.always_free_vcn.id
   display_name   = "InternetGateway"
 }
 
 # Definição da Tabela de Rotas
 resource "oci_core_route_table" "route_table" {
-  compartment_id = var.tenancy_ocid
+  compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.always_free_vcn.id
   display_name   = "RouteTable"
 
@@ -53,7 +53,7 @@ resource "oci_core_route_table" "route_table" {
 
 # Definição da Sub-rede Pública
 resource "oci_core_subnet" "public_subnet" {
-  compartment_id    = var.tenancy_ocid
+  compartment_id    = var.compartment_ocid
   vcn_id            = oci_core_vcn.always_free_vcn.id
   cidr_block        = "10.0.1.0/24"
   display_name      = "PublicSubnet"
@@ -64,7 +64,7 @@ resource "oci_core_subnet" "public_subnet" {
 
 # Definição da Security List
 resource "oci_core_security_list" "default_security_list" {
-  compartment_id = var.tenancy_ocid
+  compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.always_free_vcn.id
   display_name   = "DefaultSecurityList"
 
@@ -103,7 +103,7 @@ resource "oci_core_security_list" "default_security_list" {
 
 # Definição do Load Balancer
 resource "oci_load_balancer_load_balancer" "always_free_lb" {
-  compartment_id = var.tenancy_ocid
+  compartment_id = var.compartment_ocid
   display_name   = "AlwaysFreeLB"
   shape          = "flexible"
   shape_details {
@@ -148,10 +148,10 @@ resource "oci_load_balancer_listener" "https_listener" {
 
 # Definição das Instâncias de Computação
 resource "oci_core_instance" "always_free_vm" {
-  count               = 2
+  count = 2
   # Distribui as instâncias de forma cíclica entre os ADs disponíveis na região.
   availability_domain = data.oci_identity_availability_domains.ads.availability_domains[count.index % length(data.oci_identity_availability_domains.ads.availability_domains)].name
-  compartment_id      = var.tenancy_ocid
+  compartment_id      = var.compartment_ocid
   display_name        = "AlwaysFree-VM-${count.index}"
   shape               = var.instance_shape
 

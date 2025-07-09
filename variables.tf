@@ -6,6 +6,10 @@ variable "user_ocid" {
   description = "OCID do seu usuário na OCI."
 }
 
+variable "compartment_ocid" {
+  description = "OCID do compartimento onde os recursos serão criados."
+}
+
 variable "fingerprint" {
   description = "Fingerprint da sua chave de API."
 }
@@ -13,10 +17,6 @@ variable "fingerprint" {
 variable "region" {
   description = "Região da OCI onde os recursos serão criados."
 }
-
-# variable "compartment_ocid" {
-#   description = "OCID do compartimento onde os recursos serão criados."
-# }
 
 variable "ssh_public_key_path" {
   description = "Caminho para o arquivo da sua chave pública SSH."
